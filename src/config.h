@@ -1,14 +1,19 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <string>
 
-namespace General::Scheduler {
+namespace general::scheduler {
 
-class Config {
+class config {
 public:
-    Config();
+    config();
     const std::string& get_log_path() const;
     const std::string& get_log_level() const;
     const std::string& get_delivery_ip() const;
     const int get_delivery_port() const;
+    const int get_thread_pool_size() const;
+    const int get_refresh_interval() const;
     
 
 private:
@@ -16,11 +21,17 @@ private:
     constexpr static const char* DEFAULT_SCHEDULER_LOG_LEVEL = "INFO";
     constexpr static const char* DEFAULT_SCHEDULER_DELIVERY_IP = "127.0.0.1";
     constexpr static int DEFAULT_SCHEDULER_DELIVERY_PORT = 43200;
+    constexpr static int DEFAULT_SCHEDULER_THREAD_POOL_SIZE = 16;
+    constexpr static int DEFAULT_SCHEDULER_REFRESH_INTERVAL = 30;
 
-    std::string log_path;
-    std::string log_level;
-    std::string delivery_ip;
-    int delivery_port;
+    std::string m_log_path;
+    std::string m_log_level;
+    std::string m_delivery_ip;
+    int m_delivery_port;
+    int m_thread_pool_size;
+    int m_refresh_interval;
 };    
 
 }
+
+#endif

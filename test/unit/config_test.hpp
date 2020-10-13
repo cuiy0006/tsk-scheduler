@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string>
 
-using namespace General::Scheduler;
+using namespace general::scheduler;
 
 TEST(ConfigTest, TestDefault){
-    Config config;
+    config config;
     ASSERT_EQ("./scheduler.log", config.get_log_path());
     ASSERT_EQ("INFO", config.get_log_level());
     ASSERT_EQ("127.0.0.1", config.get_delivery_ip());
@@ -26,7 +26,7 @@ TEST(ConfigTest, TestAssignment){
     setenv("SCHEDULER_DELIVERY_IP", delivery_ip.c_str(), 1);
     setenv("SCHEDULER_DELIVERY_PORT", delivery_port_str, 1);
 
-    Config config;
+    config config;
     ASSERT_EQ(log_path, config.get_log_path());
     ASSERT_EQ(log_level, config.get_log_level());
     ASSERT_EQ(delivery_ip, config.get_delivery_ip());

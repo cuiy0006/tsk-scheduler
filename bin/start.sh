@@ -1,0 +1,2 @@
+SCHEDULER_REFRESH_INTERVAL=1 \
+./scheduler
