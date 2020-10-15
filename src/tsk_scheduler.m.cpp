@@ -1,6 +1,6 @@
-#include "threads/asio_thread_pool.hpp"
+#include "asio_thread_pool.hpp"
 #include "config.h"
-#include "scheduler/scheduler.h"
+#include "scheduler.h"
 
 
 int main(int argc, char *argv[])

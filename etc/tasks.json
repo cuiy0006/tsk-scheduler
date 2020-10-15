@@ -1,0 +1,23 @@
+{
+    "jobs": [
+        {
+            "taskId": "4ec2f2a5-3cba-4bef-bc51-9a52ca55f424",
+            "startDateTime": "2020-10-13 17:44:40.000",
+            "endDateTime": "2021-10-13 17:44:40.000",
+            "interval": 60
+        },
+        {
+            "taskId": "cd7df029-db53-47eb-ba39-1fb8e97d79e3",
+            "startDateTime": "2020-10-13 17:44:40.000",
+            "endDateTime": "2021-10-13 17:44:40.000",
+            "interval": 45           
+        },
+        {
+            "taskId": "e0b53514-1328-490a-b211-dbfb68a37623",
+            "startDateTime": "2020-10-13 17:44:40.000",
+            "endDateTime": "2021-10-13 17:44:40.000",
+            "interval": 30           
+        }
+    ]
+}
+
