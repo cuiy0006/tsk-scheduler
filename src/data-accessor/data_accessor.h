@@ -10,9 +10,8 @@ namespace general::scheduler {
 class data_accessor {
 
 public:
-    using task_ptr_t = std::shared_ptr<task>;
 
-    using tasks_map_t = std::unordered_map<std::string, task_ptr_t>;
+    using tasks_map_t = std::unordered_map<std::string, task>;
 
     using get_tasks_callback = std::function<void(const tasks_map_t&)>;
 
