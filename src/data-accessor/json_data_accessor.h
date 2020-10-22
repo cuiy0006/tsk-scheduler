@@ -12,7 +12,7 @@ namespace general::scheduler {
 class json_data_accessor : public data_accessor {
 
 public:
-    json_data_accessor(boost::asio::io_service& io_service);
+    json_data_accessor(boost::asio::io_service& io_service, config& config);
 
     void get_tasks_async(get_tasks_callback cb) = 0;
 

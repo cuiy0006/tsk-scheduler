@@ -4,8 +4,8 @@
 
 namespace general::scheduler {
 
-json_data_accessor::json_data_accessor(boost::asio::io_service& io_service)
-    : data_accessor(io_service) {
+json_data_accessor::json_data_accessor(boost::asio::io_service& io_service, config& config)
+    : data_accessor(io_service, config) {
 }
 
 void json_data_accessor::get_tasks(tasks_map_t& tasks_map) {

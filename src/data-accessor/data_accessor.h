@@ -5,13 +5,14 @@
 #include <functional>
 #include <task.h>
 #include <boost/asio.hpp>
+#include <config.h>
 
 namespace general::scheduler {
 
 class data_accessor {
 
 public:
-    data_accessor(boost::asio::io_service& io_service);
+    data_accessor(boost::asio::io_service& io_service, config& config);
 
     virtual ~data_accessor();
 
@@ -25,6 +26,8 @@ public:
 
 protected:
     boost::asio::io_service& m_io_service;
+
+    config& m_config;
 
 };
 
