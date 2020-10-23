@@ -6,17 +6,20 @@
 #include <task.h>
 #include <boost/asio.hpp>
 #include "data_accessor.h"
+#include "json.hpp"
 
 namespace general::scheduler {
+
+using json = nlohmann::json;
 
 class json_data_accessor : public data_accessor {
 
 public:
     json_data_accessor(boost::asio::io_service& io_service, config& config);
 
-    void get_tasks_async(get_tasks_callback cb) = 0;
+    void get_tasks_async(get_tasks_callback cb);
 
-    void get_tasks(tasks_map_t& tasks_map) = 0;
+    void get_tasks(tasks_map_t& tasks_map);
 
 };
 

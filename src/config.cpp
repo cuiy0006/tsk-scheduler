@@ -22,6 +22,9 @@ config::config(){
 
     env = getenv("SCHEDULER_REFRESH_INTERVAL");
     env != nullptr? m_refresh_interval = std::stoi(env): m_refresh_interval = DEFAULT_SCHEDULER_REFRESH_INTERVAL;
+
+    env = getenv("SCHEDULER_TASK_JSON_PATH");
+    env != nullptr? m_task_json_path.assign(env): m_task_json_path = DEFAULT_SCHEDULER_TASK_JSON_PATH;
 }
 
 const std::string& config::get_log_path() const {
@@ -46,6 +49,10 @@ const int config::get_thread_pool_size() const {
 
 const int config::get_refresh_interval() const {
     return m_refresh_interval;
+}
+
+const std::string& config::get_task_json_path() const {
+    return m_task_json_path;
 }
 
 }

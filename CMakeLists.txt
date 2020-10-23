@@ -14,3 +14,6 @@ add_subdirectory(src)
 
 install (PROGRAMS ${CMAKE_SOURCE_DIR}/bin/start.sh
     DESTINATION ${PROJECT_BINARY_DIR}/bin)
+
+install (FILES ${CMAKE_SOURCE_DIR}/etc/tasks.json 
+    DESTINATION ${PROJECT_BINARY_DIR}/bin)

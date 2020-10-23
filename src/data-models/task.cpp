@@ -18,7 +18,7 @@ void task::set_end_date_time(std::string& end_date_time_str) {
     m_end_date_time = time_from_string(end_date_time_str);
 }
 
-const std::string task::get_task_id() const {
+const std::string& task::get_task_id() const {
     return m_task_id;
 }
 
