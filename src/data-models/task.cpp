@@ -2,12 +2,20 @@
 
 namespace general::scheduler {
 
+task::task() {
+
+}
+
 task::task(std::string& task_id)
     : m_task_id(task_id) {
 }
 
 void task::set_interval(int interval) {
     m_interval = interval;
+}
+
+void task::set_task_id(std::string& task_id) {
+    m_task_id = task_id;
 }
 
 void task::set_start_date_time(std::string& start_date_time_str) {
@@ -47,7 +55,7 @@ std::ostream &operator<<(std::ostream &os, task const &tsk) {
     return os << "task id: " << tsk.get_task_id() << "\n"
                 << "task interval: " << tsk.get_interval() << "\n"
                 << "task start date time: " << tsk.get_start_date_time() << "\n"
-                << "task end date time: " << tsk.get_end_date_time();
+                << "task end date time: " << tsk.get_end_date_time() << "\n";
 }
 
 }

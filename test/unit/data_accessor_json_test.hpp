@@ -18,5 +18,13 @@ TEST(DataAccessorJsonTest, TestDefault){
 
     jda.get_tasks(tasks_map);
 
+    EXPECT_NE(0, tasks_map.size());
+
+    for(auto it = tasks_map.begin(); it != tasks_map.end(); ++it){
+        const std::string& task_id = it->first;
+
+        EXPECT_EQ(task_id, it->second.get_task_id());
+    }
+
     pool.stop();
 }

@@ -18,12 +18,28 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map) {
     auto& tasks = tasks_object["tasks"];
 
     for(auto it = tasks.begin(); it != tasks.end(); ++it){
-        std::cout << *it << std::endl;
+        json o = *it;
+        
+        std::string&& task_id = o["taskId"];
+        int interval = o["interval"];
+        std::string&& start_datetime = o["startDateTime"];
+        std::string&& end_datetime = o["endDateTime"];
+
+        task t(task_id);
+        t.set_interval(interval);
+        t.set_start_date_time(start_datetime);
+        t.set_end_date_time(end_datetime);
+
+        tasks_map.emplace(task_id, std::move(t));
     }
 }
 
 void json_data_accessor::get_tasks_async(get_tasks_callback cb) {
-
+    this->m_io_service.dispatch([this, cb](){
+        tasks_map_t tasks_map;
+        this->get_tasks(tasks_map);
+        cb(tasks_map);
+    });
 }
 
 }

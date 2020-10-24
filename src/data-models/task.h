@@ -12,7 +12,9 @@ namespace general::scheduler {
 class task {
 
 public:
+    task();
     task(std::string& task_id);
+    void set_task_id(std::string& task_id);
     void set_interval(int interval);
     void set_start_date_time(std::string& start_date_time_str);
     void set_end_date_time(std::string& end_date_time_str);
@@ -25,7 +27,7 @@ public:
     ptime get_end_date_time_local() const;
 
 private:
-    std::string& m_task_id;
+    std::string m_task_id;
     int m_interval;
     ptime m_start_date_time;
     ptime m_end_date_time;
