@@ -1,7 +1,10 @@
 add_executable(scheduler 
     tsk_scheduler.m.cpp
     config.cpp
-    scheduler/scheduler.cpp)
+    scheduler/scheduler.cpp
+    data-models/task.cpp
+    data-accessor/json_data_accessor.cpp
+    data-accessor/data_accessor.cpp)
 
 target_link_libraries(scheduler 
     ${Boost_SYSTEM_LIBRARY} 

@@ -5,6 +5,8 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <config.h>
 
+#include "json_data_accessor.h"
+
 namespace general::scheduler {
 
 class scheduler {
@@ -14,9 +16,13 @@ public:
 private:
     void refresh();
     void schedule_next_refresh();
+    void get_tasks_map_callback(const data_accessor::tasks_map_t& tasks_map);
+    
     boost::asio::io_service& m_io_service;
     config& m_config;
     boost::asio::deadline_timer m_refresh_timer;
+    json_data_accessor m_data_accessor;
+
 
 };
 
