@@ -20,9 +20,9 @@ public:
 
     using get_tasks_callback = std::function<void(const tasks_map_t&)>;
 
-    virtual void get_tasks_async(get_tasks_callback cb) = 0;
+    virtual void get_tasks_async(get_tasks_callback cb, bool all) = 0;
 
-    virtual void get_tasks(tasks_map_t& tasks_map) = 0;
+    virtual void get_tasks(tasks_map_t& tasks_map, bool all) = 0;
 
 protected:
     boost::asio::io_service& m_io_service;

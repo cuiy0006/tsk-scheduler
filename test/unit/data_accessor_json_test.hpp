@@ -16,7 +16,7 @@ TEST(DataAccessorJsonTest, TestDefault){
 
     data_accessor::tasks_map_t tasks_map;
 
-    jda.get_tasks(tasks_map);
+    jda.get_tasks(tasks_map, true);
 
     EXPECT_NE(0, tasks_map.size());
 

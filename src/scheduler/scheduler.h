@@ -14,7 +14,7 @@ public:
     scheduler(boost::asio::io_service& io_service, config& config);
     void run();
 private:
-    void refresh();
+    void refresh(bool first_run);
     void schedule_next_refresh();
     void get_tasks_map_callback(const data_accessor::tasks_map_t& tasks_map);
     

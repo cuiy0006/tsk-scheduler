@@ -16,19 +16,19 @@ scheduler::scheduler(boost::asio::io_service& io_service, config& config)
 
 void scheduler::run() {
     m_io_service.dispatch([this]() {
-        this->refresh();
+        this->refresh(true);
     });
 
 }
 
-void scheduler::refresh() {
+void scheduler::refresh(bool first_run) {
     // std::thread::id this_id = std::this_thread::get_id();
     // std::cout << this_id << std::endl;
 
-    data_accessor::tasks_map_t tasks_map;
+    data_accessor::tasks_map_t modified_tasks_map;
 
     auto cb = std::bind(&scheduler::get_tasks_map_callback, this, std::placeholders::_1);
-    m_data_accessor.get_tasks_async(cb);
+    m_data_accessor.get_tasks_async(cb, first_run);
 
     std::cout << "scheduler next refresh..." << std::endl;
 
@@ -38,7 +38,7 @@ void scheduler::refresh() {
 void scheduler::schedule_next_refresh() {
     m_refresh_timer.expires_from_now(boost::posix_time::seconds(m_config.get_refresh_interval()));
     m_refresh_timer.async_wait([this](const boost::system::error_code& e) {
-        this->refresh();
+        this->refresh(false);
     });
 }
 
