@@ -24,11 +24,7 @@ public:
     int get_interval() const;
     ptime get_start_date_time() const;
     ptime get_end_date_time() const;
-    ptime get_modified_on() const;
-
-    ptime get_start_date_time_local() const;
-    ptime get_end_date_time_local() const;
-    ptime get_modified_on_local() const;    
+    ptime get_modified_on() const; 
 
 private:
     std::string m_task_id;

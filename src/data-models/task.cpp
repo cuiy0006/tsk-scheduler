@@ -50,18 +50,6 @@ ptime task::get_modified_on() const {
     return m_modified_on;
 }
 
-ptime task::get_start_date_time_local() const {
-    return boost::date_time::c_local_adjustor<ptime>::utc_to_local(m_start_date_time);
-}
-
-ptime task::get_end_date_time_local() const {
-    return boost::date_time::c_local_adjustor<ptime>::utc_to_local(m_end_date_time);
-}
-
-ptime task::get_modified_on_local() const {
-    return boost::date_time::c_local_adjustor<ptime>::utc_to_local(m_modified_on);
-}
-
 std::ostream &operator<<(std::ostream &os, task const &tsk) { 
     return os << "task id: " << tsk.get_task_id() << "\n"
                 << "task interval: " << tsk.get_interval() << "\n"

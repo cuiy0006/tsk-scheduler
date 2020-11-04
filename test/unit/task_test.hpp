@@ -22,7 +22,4 @@ TEST(TaskTest, TestDefault){
     EXPECT_EQ(20, task.get_interval());
     EXPECT_EQ("2002-Jun-20 23:59:59.123000", to_simple_string(task.get_start_date_time()));
     EXPECT_EQ("1989-Dec-31 00:00:00.321000", to_simple_string(task.get_end_date_time()));
-    
-    EXPECT_EQ("2002-Jun-20 19:59:59.123000", to_simple_string(task.get_start_date_time_local()));
-    EXPECT_EQ("1989-Dec-30 19:00:00.321000", to_simple_string(task.get_end_date_time_local()));
 }
