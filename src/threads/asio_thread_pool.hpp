@@ -5,6 +5,7 @@
 #include <memory>
 #include <thread>
 #include <vector>
+#include <boost/log/trivial.hpp>
 
 namespace general::scheduler {
 
@@ -16,7 +17,10 @@ public:
     {
         for (int i = 0; i < thread_num; ++i)
         {
-            m_threads.emplace_back([this] () { m_io_service.run(); });
+            m_threads.emplace_back([this] () { 
+                BOOST_LOG_TRIVIAL(info) << "Initiating thread: " << std::this_thread::get_id();
+                m_io_service.run(); 
+            });
         }
     }
 

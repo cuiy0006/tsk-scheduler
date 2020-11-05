@@ -4,7 +4,8 @@ project(tsk-scheduler)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++17 -Wall")
 
-find_package(Boost COMPONENTS system date_time REQUIRED)
+SET(Boost_USE_STATIC_LIBS ON)
+find_package(Boost COMPONENTS system date_time log REQUIRED)
 find_package(Threads REQUIRED)
 
 enable_testing()

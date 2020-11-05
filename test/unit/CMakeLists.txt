@@ -8,7 +8,9 @@ add_executable(all_unit_tests
 target_link_libraries(all_unit_tests 
     gtest_main 
     Boost::date_time
-    ${Boost_SYSTEM_LIBRARY})
+    ${Boost_SYSTEM_LIBRARY}
+    Boost::log_setup
+    Boost::log)
 
 target_include_directories(all_unit_tests PRIVATE 
     ../../src

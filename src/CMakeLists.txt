@@ -9,7 +9,9 @@ add_executable(scheduler
 target_link_libraries(scheduler 
     ${Boost_SYSTEM_LIBRARY} 
     ${CMAKE_THREAD_LIBS_INIT}
-    Boost::date_time)
+    Boost::date_time
+    Boost::log_setup
+    Boost::log)
 
 target_include_directories(scheduler PRIVATE 
     .

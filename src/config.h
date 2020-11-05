@@ -18,8 +18,8 @@ public:
     
 
 private:
-    constexpr static const char* DEFAULT_SCHEDULER_LOG_PATH = "./scheduler.log";
-    constexpr static const char* DEFAULT_SCHEDULER_LOG_LEVEL = "INFO";
+    constexpr static const char* DEFAULT_SCHEDULER_LOG_PATH = "./scheduler_%N.log";
+    constexpr static const char* DEFAULT_SCHEDULER_LOG_LEVEL = "DEBUG";
     constexpr static const char* DEFAULT_SCHEDULER_DELIVERY_IP = "127.0.0.1";
     constexpr static int DEFAULT_SCHEDULER_DELIVERY_PORT = 43200;
     constexpr static int DEFAULT_SCHEDULER_THREAD_POOL_SIZE = 16;
