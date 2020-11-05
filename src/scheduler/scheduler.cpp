@@ -33,13 +33,14 @@ void scheduler::refresh(bool first_run) {
     auto cb = std::bind(&scheduler::get_tasks_map_callback, this, std::placeholders::_1);
     m_data_accessor.get_tasks_async(cb, first_run);
 
-    BOOST_LOG_TRIVIAL(info) << "Schedule next refresh...";
-
     schedule_next_refresh();
 }
 
 void scheduler::schedule_next_refresh() {
+    BOOST_LOG_TRIVIAL(info) << "Schedule next refresh...";
+
     m_refresh_timer.expires_from_now(boost::posix_time::seconds(m_config.get_refresh_interval()));
+    
     m_refresh_timer.async_wait([this](const boost::system::error_code& e) {
         this->refresh(false);
     });
@@ -47,7 +48,7 @@ void scheduler::schedule_next_refresh() {
 
 void scheduler::get_tasks_map_callback(const data_accessor::tasks_map_t& tasks_map) {
     for(auto it = tasks_map.begin(); it != tasks_map.end(); ++it){
-        BOOST_LOG_TRIVIAL(debug) << it->second;
+        BOOST_LOG_TRIVIAL(debug) << "Fetched tasks: " << it->second;
     }
 }
 
