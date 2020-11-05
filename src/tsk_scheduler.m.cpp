@@ -10,9 +10,9 @@
 #include <boost/log/support/date_time.hpp>
 #include <boost/phoenix.hpp>
 
-#include "asio_thread_pool.hpp"
+#include <asio_thread_pool.hpp>
 #include "config.h"
-#include "scheduler.h"
+#include <scheduler.h>
 
 namespace logging = boost::log;
 namespace keywords = boost::log::keywords;

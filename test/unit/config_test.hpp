@@ -7,8 +7,8 @@ using namespace general::scheduler;
 
 TEST(ConfigTest, TestDefault){
     config config;
-    ASSERT_EQ("./scheduler.log", config.get_log_path());
-    ASSERT_EQ("INFO", config.get_log_level());
+    ASSERT_EQ("./scheduler_%N.log", config.get_log_path());
+    ASSERT_EQ("DEBUG", config.get_log_level());
     ASSERT_EQ("127.0.0.1", config.get_delivery_ip());
     ASSERT_EQ(43200, config.get_delivery_port());
 }
