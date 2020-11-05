@@ -51,11 +51,12 @@ ptime task::get_modified_on() const {
 }
 
 std::ostream &operator<<(std::ostream &os, task const &tsk) { 
-    return os << "task id: " << tsk.get_task_id() << "\n"
-                << "task interval: " << tsk.get_interval() << "\n"
-                << "task start date time: " << tsk.get_start_date_time() << "\n"
-                << "task end date time: " << tsk.get_end_date_time() << "\n"
-                << "task modified date time: " << tsk.get_modified_on() << "\n";
+    return os << "\n{\n"
+                << "    task id: " << tsk.get_task_id() << "\n"
+                << "    task interval: " << tsk.get_interval() << "\n"
+                << "    task start date time: " << tsk.get_start_date_time() << "\n"
+                << "    task end date time: " << tsk.get_end_date_time() << "\n"
+                << "    task modified date time: " << tsk.get_modified_on() << "\n}\n";
 }
 
 }

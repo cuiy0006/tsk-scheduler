@@ -1,10 +1,13 @@
 #ifndef THREAD_POOL_H
 #define THREAD_POOL_H
 
-#include <boost/asio.hpp>
+// system
 #include <memory>
 #include <thread>
 #include <vector>
+
+// boost
+#include <boost/asio.hpp>
 #include <boost/log/trivial.hpp>
 
 namespace general::scheduler {

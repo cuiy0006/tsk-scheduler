@@ -1,11 +1,11 @@
-#include <iostream>
+// system
 #include <thread>
 
+// boost
+#include <boost/log/trivial.hpp>
 
 #include "scheduler.h"
 #include "json_data_accessor.h"
-#include <iostream>
-#include <boost/log/trivial.hpp>
 
 
 namespace general::scheduler {
@@ -47,10 +47,8 @@ void scheduler::schedule_next_refresh() {
 
 void scheduler::get_tasks_map_callback(const data_accessor::tasks_map_t& tasks_map) {
     for(auto it = tasks_map.begin(); it != tasks_map.end(); ++it){
-        BOOST_LOG_TRIVIAL(info) << it->second;
-        BOOST_LOG_TRIVIAL(info) << "----------------------------------";
+        BOOST_LOG_TRIVIAL(debug) << it->second;
     }
-    BOOST_LOG_TRIVIAL(info) << "##########################################";
 }
 
 

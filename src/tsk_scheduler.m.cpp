@@ -1,6 +1,7 @@
-#include "asio_thread_pool.hpp"
-#include "config.h"
-#include "scheduler.h"
+// system
+#include <thread>
+
+// boost
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/expressions.hpp>
@@ -8,7 +9,10 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/phoenix.hpp>
-#include <thread>
+
+#include "asio_thread_pool.hpp"
+#include "config.h"
+#include "scheduler.h"
 
 namespace logging = boost::log;
 namespace keywords = boost::log::keywords;
