@@ -12,11 +12,11 @@ target_link_libraries(all_unit_tests
     Boost::log_setup
     Boost::log)
 
-target_include_directories(all_unit_tests PRIVATE 
+target_include_directories(all_unit_tests PRIVATE
+    mock
     ../../src
     ../../src/data-models
-    ../../src/data-accessor
-    ../../src/threads)
+    ../../src/data-accessor)
 
 install (TARGETS all_unit_tests
     DESTINATION ${PROJECT_BINARY_DIR}/bin)

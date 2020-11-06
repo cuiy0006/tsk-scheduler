@@ -25,11 +25,10 @@ void scheduler::run() {
 }
 
 void scheduler::refresh(bool first_run) {
-    // std::thread::id this_id = std::this_thread::get_id();
-    // std::cout << this_id << std::endl;
 
     data_accessor::tasks_map_t modified_tasks_map;
 
+    // get all jobs info for the first run, and then get modified jobs info
     auto cb = std::bind(&scheduler::get_tasks_map_callback, this, std::placeholders::_1);
     m_data_accessor.get_tasks_async(cb, first_run);
 
