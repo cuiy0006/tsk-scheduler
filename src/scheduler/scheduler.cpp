@@ -14,7 +14,8 @@ scheduler::scheduler(boost::asio::io_service& io_service, config& config)
     : m_io_service(io_service),
       m_config(config),
       m_refresh_timer(m_io_service),
-      m_data_accessor(m_io_service, m_config) {
+      m_data_accessor(m_io_service, m_config),
+      m_scheduler_engine(m_io_service, m_config) {
 }
 
 void scheduler::run() {
@@ -45,10 +46,13 @@ void scheduler::schedule_next_refresh() {
     });
 }
 
-void scheduler::get_tasks_map_callback(const data_accessor::tasks_map_t& tasks_map) {
-    for(auto it = tasks_map.begin(); it != tasks_map.end(); ++it){
-        BOOST_LOG_TRIVIAL(debug) << "Fetched tasks: " << it->second;
-    }
+void scheduler::get_tasks_map_callback(data_accessor::tasks_map_t& tasks_map) {
+    // for(auto it = tasks_map.begin(); it != tasks_map.end(); ++it){
+    //     BOOST_LOG_TRIVIAL(debug) << "Fetched tasks: " << it->second;
+    // }
+
+    m_scheduler_engine.add_tasks(tasks_map);
+
 }
 
 

@@ -21,7 +21,7 @@ public:
 
     using tasks_map_t = std::unordered_map<std::string, task>;
 
-    using get_tasks_callback = std::function<void(const tasks_map_t&)>;
+    using get_tasks_callback = std::function<void(tasks_map_t&)>;
 
     virtual void get_tasks_async(get_tasks_callback cb, bool all) = 0;
 
