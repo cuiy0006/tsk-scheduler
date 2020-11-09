@@ -41,9 +41,12 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
 
         // only get modified tasks
         bool not_modifed = !all && now - td > t.get_modified_on();
-        bool is_next_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
+        // now is in window
+        bool is_now_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now);
+        // next refresh is in window 
+        bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
         
-        if(not_modifed || !is_next_in_window){
+        if(not_modifed || (!is_now_in_window && !is_future_in_window)){
             continue;
         }
 
