@@ -13,17 +13,19 @@ namespace general::scheduler {
 
 class scheduler_engine {
 public:
-    using tasks_map_t = std::unordered_map<std::string, task>;
     scheduler_engine(boost::asio::io_service& io_service, config& config);
-    void add_tasks(tasks_map_t& tasks_map);
+    void add_tasks(std::unordered_map<std::string, task>& tasks_map);
 
 private:
-    tasks_map_t m_tasks_map;
     boost::asio::io_service& m_io_service;
     config& m_config;
 
     struct entry
     {
+        entry(){
+            
+        }
+
         entry(task& task)
             : m_task(std::move(task)){
 
@@ -36,6 +38,8 @@ private:
         std::unique_ptr<boost::asio::deadline_timer> start_timer_ptr;
         std::unique_ptr<boost::asio::deadline_timer> recurring_timer_ptr;
     };
+
+    std::unordered_map<std::string, entry> m_entries_map;
     
 };
 

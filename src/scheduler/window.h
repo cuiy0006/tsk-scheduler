@@ -13,8 +13,6 @@ public:
         int m_interval;
         ptime m_start_date_time;
         ptime m_end_date_time;
-        bool is_expired;
-        bool is_valid;
     };
 
     window(const window_info& wi, const std::string& task_id);
