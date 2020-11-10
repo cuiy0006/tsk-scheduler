@@ -16,7 +16,7 @@ void scheduler_engine::add_tasks(std::unordered_map<std::string, task>& tasks_ma
         if(m_entries_map.find(it->first) != m_entries_map.end()){
             BOOST_LOG_TRIVIAL(debug) << "Adding modified task: " << it->second;
 
-            m_entries_map[it->first].m_task = it->second;
+            m_entries_map.at(it->first).m_task = it->second;
         } else {
             BOOST_LOG_TRIVIAL(debug) << "Adding new task: " << it->second;
 

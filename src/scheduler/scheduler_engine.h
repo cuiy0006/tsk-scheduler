@@ -3,6 +3,7 @@
 
 #include <boost/asio.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/log/trivial.hpp>
 
 #include <unordered_map>
 
@@ -22,13 +23,14 @@ private:
 
     struct entry
     {
-        entry(){
-            
-        }
 
         entry(task& task)
             : m_task(std::move(task)){
 
+        }
+
+        ~entry(){
+            stop_timers();
         }
 
         entry(const entry& e) = delete;
@@ -37,6 +39,18 @@ private:
         task m_task;
         std::unique_ptr<boost::asio::deadline_timer> start_timer_ptr;
         std::unique_ptr<boost::asio::deadline_timer> recurring_timer_ptr;
+
+        void stop_timers() {
+            BOOST_LOG_TRIVIAL(info) << "Stop timers for task: " << m_task.get_task_id();
+
+            if(start_timer_ptr){
+                start_timer_ptr->cancel();
+            }
+
+            if(recurring_timer_ptr){
+                recurring_timer_ptr->cancel();
+            }
+        }
     };
 
     std::unordered_map<std::string, entry> m_entries_map;
