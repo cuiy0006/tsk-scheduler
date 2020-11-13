@@ -34,5 +34,8 @@ bool is_in_window(ptime&& start_date_time, ptime&& end_date_time, ptime& time) {
     return is_in_window(start_date_time, end_date_time, time);
 }
 
+bool is_in_window(ptime&& start_date_time, ptime& end_date_time, ptime&& time) {
+    return is_in_window(start_date_time, end_date_time, time);
+}
 
 #endif

@@ -4,6 +4,7 @@
 #include "json_data_accessor.h"
 #include "data_accessor.h"
 #include <common/common.hpp>
+#include <boost/log/trivial.hpp>
 
 
 namespace general::scheduler {
@@ -40,16 +41,23 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         ptime now = microsec_clock::universal_time();
 
         // only get modified tasks
-        bool not_modifed = !all && now - td > t.get_modified_on();
+        bool modifed = is_in_window(now - td, now, t.get_modified_on());
+
+        BOOST_LOG_TRIVIAL(debug) << "task: " << t.get_task_id() << ", 1: " << now - td << ", 2: " << t.get_modified_on() << ", 3: " <<  modifed;
+
+        if(!all && !modifed){
+            continue;
+        }
+
         // now is in window
         bool is_now_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now);
         // next refresh is in window 
         bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
-        
-        if(not_modifed || (!is_now_in_window && !is_future_in_window)){
+
+        if(!is_now_in_window && !is_future_in_window) {
             continue;
         }
-
+        
         tasks_map.emplace(task_id, std::move(t));
     }
 }
