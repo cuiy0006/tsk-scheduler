@@ -30,21 +30,21 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         std::string&& end_datetime_str = o["endDateTime"];
         std::string&& task_id = o["taskId"];
         int interval = o["interval"];
+        bool active = o["active"] == 1? true : false;
 
         task t(task_id);
         t.set_interval(interval);
         t.set_start_date_time(start_datetime_str);
         t.set_end_date_time(end_datetime_str);
         t.set_modified_on(modified_on_str);
+        t.set_active(active);
 
         time_duration td = seconds(m_config.get_refresh_interval());
         ptime now = microsec_clock::universal_time();
 
         // only get modified tasks
         bool modifed = is_in_window(now - td, now, t.get_modified_on());
-
-        BOOST_LOG_TRIVIAL(debug) << "task: " << t.get_task_id() << ", 1: " << now - td << ", 2: " << t.get_modified_on() << ", 3: " <<  modifed;
-
+        
         if(!all && !modifed){
             continue;
         }

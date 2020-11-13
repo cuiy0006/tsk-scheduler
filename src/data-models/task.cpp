@@ -30,6 +30,10 @@ void task::set_modified_on(std::string& modified_on) {
     m_modified_on = time_from_string(modified_on);
 }
 
+void task::set_active(bool active) {
+    m_active = active;
+}
+
 const std::string& task::get_task_id() const {
     return m_task_id;
 }
@@ -50,13 +54,18 @@ ptime task::get_modified_on() const {
     return m_modified_on;
 }
 
+bool task::get_active() const {
+    return m_active;
+}
+
 std::ostream &operator<<(std::ostream &os, task const &tsk) { 
     return os << "\n{\n"
                 << "    task id: " << tsk.get_task_id() << "\n"
                 << "    task interval: " << tsk.get_interval() << "\n"
                 << "    task start date time: " << tsk.get_start_date_time() << "\n"
                 << "    task end date time: " << tsk.get_end_date_time() << "\n"
-                << "    task modified date time: " << tsk.get_modified_on() << "\n}\n";
+                << "    task modified date time: " << tsk.get_modified_on() << "\n"
+                << "    task active: " << tsk.get_active() << "\n}\n";
 }
 
 }

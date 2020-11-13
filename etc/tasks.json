@@ -5,21 +5,24 @@
             "startDateTime": "2020-10-13 17:44:40.000",
             "endDateTime": "2121-10-13 17:44:40.000",
             "interval": 60,
-            "modifiedOn": "2020-11-04 00:32:00.000"
+            "modifiedOn": "2020-11-04 00:32:00.000",
+            "active": 1
         },
         {
             "taskId": "cd7df029-db53-47eb-ba39-1fb8e97d79e3",
             "startDateTime": "2020-10-13 17:44:40.000",
             "endDateTime": "2021-10-13 17:44:40.000",
             "interval": 45,
-            "modifiedOn": "2020-11-03 15:00:00.000"
+            "modifiedOn": "2020-11-03 15:00:00.000",
+            "active": 1
         },
         {
             "taskId": "e0b53514-1328-490a-b211-dbfb68a37623",
             "startDateTime": "2020-10-13 17:44:40.000",
             "endDateTime": "2021-10-13 17:44:40.000",
             "interval": 30,
-            "modifiedOn": "2020-11-03 15:00:00.000"
+            "modifiedOn": "2020-11-03 15:00:00.000",
+            "active": 1
         }
     ]
 }

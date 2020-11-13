@@ -22,12 +22,14 @@ public:
     void set_start_date_time(std::string& start_date_time_str);
     void set_end_date_time(std::string& end_date_time_str);
     void set_modified_on(std::string& modified_on);
+    void set_active(bool active);
 
     const std::string& get_task_id() const;
     int get_interval() const;
     ptime get_start_date_time() const;
     ptime get_end_date_time() const;
-    ptime get_modified_on() const; 
+    ptime get_modified_on() const;
+    bool get_active() const;
 
 private:
     std::string m_task_id;
@@ -35,6 +37,7 @@ private:
     ptime m_start_date_time;
     ptime m_end_date_time;
     ptime m_modified_on;
+    bool m_active;
 };
 
 std::ostream &operator<<(std::ostream &os, task const &tsk);
