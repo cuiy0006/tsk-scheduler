@@ -32,6 +32,10 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         int interval = o["interval"];
         bool active = o["active"] == 1? true : false;
 
+        if(all && !active) {
+            continue;
+        }
+
         task t(task_id);
         t.set_interval(interval);
         t.set_start_date_time(start_datetime_str);
@@ -43,19 +47,21 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         ptime now = microsec_clock::universal_time();
 
         // only get modified tasks
-        bool modifed = is_in_window(now - td, now, t.get_modified_on());
-        
-        if(!all && !modifed){
-            continue;
-        }
+        bool modified = is_in_window(now - td, now, t.get_modified_on());
 
         // now is in window
         bool is_now_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now);
         // next refresh is in window 
         bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
-
-        if(!is_now_in_window && !is_future_in_window) {
-            continue;
+        
+        if(!all && !modified) {
+            if(!is_now_in_window && !is_future_in_window){
+                continue;
+            } else {
+                if(!active) {
+                    continue;
+                }
+            }
         }
         
         tasks_map.emplace(task_id, std::move(t));
