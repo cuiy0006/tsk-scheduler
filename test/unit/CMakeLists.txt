@@ -3,7 +3,8 @@ add_executable(all_unit_tests
                 ../../src/config.cpp
                 ../../src/data-models/task.cpp
                 ../../src/data-accessor/json_data_accessor.cpp
-                ../../src/data-accessor/data_accessor.cpp)
+                ../../src/data-accessor/data_accessor.cpp
+                ../../src/common/common.cpp)
 
 target_link_libraries(all_unit_tests 
     gtest_main 

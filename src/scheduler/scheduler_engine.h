@@ -54,6 +54,9 @@ private:
     };
 
     std::unordered_map<std::string, entry> m_entries_map;
+
+    void setup_start_timer(entry& ent);
+    void setup_recurring_timer(entry& ent);
     
 };
 

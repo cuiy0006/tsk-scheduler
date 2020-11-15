@@ -3,8 +3,9 @@
 
 #include "json_data_accessor.h"
 #include "data_accessor.h"
-#include <common/common.hpp>
+#include <common/common.h>
 #include <boost/log/trivial.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 
 namespace general::scheduler {
@@ -32,7 +33,7 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         int interval = o["interval"];
         bool active = o["active"] == 1? true : false;
 
-        if(all && !active) {
+        if(!active) {
             continue;
         }
 
@@ -47,21 +48,15 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         ptime now = microsec_clock::universal_time();
 
         // only get modified tasks
-        bool modified = is_in_window(now - td, now, t.get_modified_on());
+        // bool modified = is_in_window(now - td, now, t.get_modified_on());
 
         // now is in window
-        bool is_now_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now);
+        bool is_start_in_window = is_in_window(now, now + td, t.get_start_date_time());
         // next refresh is in window 
-        bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
-        
-        if(!all && !modified) {
-            if(!is_now_in_window && !is_future_in_window){
-                continue;
-            } else {
-                if(!active) {
-                    continue;
-                }
-            }
+        // bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
+
+        if(!is_start_in_window){
+            continue;
         }
         
         tasks_map.emplace(task_id, std::move(t));

@@ -5,7 +5,8 @@ add_executable(scheduler
     scheduler/scheduler_engine.cpp
     data-models/task.cpp
     data-accessor/json_data_accessor.cpp
-    data-accessor/data_accessor.cpp)
+    data-accessor/data_accessor.cpp
+    common/common.cpp)
 
 target_link_libraries(scheduler 
     ${Boost_SYSTEM_LIBRARY} 
@@ -19,7 +20,8 @@ target_include_directories(scheduler PRIVATE
     data-accessor
     data-models
     scheduler
-    threads)
+    threads
+    common)
 
 install (TARGETS scheduler
     DESTINATION ${PROJECT_BINARY_DIR}/bin)
