@@ -26,30 +26,55 @@ void scheduler_engine::add_tasks(std::unordered_map<std::string, task>& tasks_ma
 
             auto&& entry = m_entries_map.at(it->first);
 
-            ptime now = microsec_clock::universal_time();
-            auto td = entry.m_task.get_start_date_time() - now;
-            if(td < milliseconds(0)) {
-                td = milliseconds(0);
-            }
-
-            if(!entry.start_timer_ptr) {
-                entry.start_timer_ptr = std::make_unique<boost::asio::deadline_timer>(m_io_service);
-            }
-            
-            entry.start_timer_ptr->expires_from_now(td);
-            entry.start_timer_ptr->async_wait([this, &entry](const boost::system::error_code& e) {
-                this->setup_start_timer(entry);
-            });
+            setup_start_timer(entry);
         }
     }
 }
 
 void scheduler_engine::setup_start_timer(entry& ent) {
 
+    ptime now = microsec_clock::universal_time();
+    auto td = ent.m_task.get_start_date_time() - now;
+    if(td < milliseconds(0)) {
+        td = milliseconds(0);
+    }
+
+    if(!ent.start_timer_ptr) {
+        ent.start_timer_ptr = std::make_unique<boost::asio::deadline_timer>(m_io_service);
+    }
+
+    BOOST_LOG_TRIVIAL(info) << "Setup up start timer for " << ent.m_task.get_task_id() << ", " << td.total_milliseconds() << " milliseconds from now";
+    
+    ent.start_timer_ptr->expires_from_now(td);
+    ent.start_timer_ptr->async_wait([this, &ent](const boost::system::error_code& e) {
+        this->setup_recurring_timer(ent);
+    });
+
+    
 }
 
 void scheduler_engine::setup_recurring_timer(entry& ent) {
 
+    if(!ent.recurring_timer_ptr) {
+        ent.recurring_timer_ptr = std::make_unique<boost::asio::deadline_timer>(m_io_service);
+    }
+
+    int interval = ent.m_task.get_interval();
+
+    BOOST_LOG_TRIVIAL(info) << "Setup up recurring timer for " << ent.m_task.get_task_id() << ", " << interval << " seconds from now";
+
+    ent.recurring_timer_ptr->expires_from_now(seconds(interval));
+    ent.recurring_timer_ptr->async_wait([this, &ent](const boost::system::error_code& e) {
+        this->dispatch(ent);
+    });
+
+
+}
+
+void scheduler_engine::dispatch(entry& ent) {
+    BOOST_LOG_TRIVIAL(info) << "Dispatching task for " << ent.m_task.get_task_id();
+
+    setup_recurring_timer(ent);
 }
 
 

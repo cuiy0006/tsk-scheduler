@@ -57,6 +57,7 @@ private:
 
     void setup_start_timer(entry& ent);
     void setup_recurring_timer(entry& ent);
+    void dispatch(entry& ent);
     
 };
 

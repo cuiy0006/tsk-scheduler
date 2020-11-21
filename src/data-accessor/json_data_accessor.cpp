@@ -48,14 +48,18 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         ptime now = microsec_clock::universal_time();
 
         // only get modified tasks
-        // bool modified = is_in_window(now - td, now, t.get_modified_on());
+        bool modified = is_in_window(now - td, now, t.get_modified_on());
+        if(!all && !modified){
+            continue;
+        }
 
         // now is in window
+        bool is_now_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now);
         bool is_start_in_window = is_in_window(now, now + td, t.get_start_date_time());
         // next refresh is in window 
         // bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
 
-        if(!is_start_in_window){
+        if(!is_now_in_window && !is_start_in_window){
             continue;
         }
         
