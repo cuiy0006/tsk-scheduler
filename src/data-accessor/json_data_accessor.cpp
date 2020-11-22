@@ -17,10 +17,12 @@ json_data_accessor::json_data_accessor(boost::asio::io_service& io_service, conf
 }
 
 void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
+    ptime now = microsec_clock::universal_time();
+    time_duration td = seconds(m_config.get_refresh_interval());
+
     std::ifstream tasks_file(m_config.get_task_json_path());
     json tasks_object;
     tasks_file >> tasks_object;
-
     auto& tasks = tasks_object["tasks"];
 
     for(auto it = tasks.begin(); it != tasks.end(); ++it){
@@ -44,23 +46,23 @@ void json_data_accessor::get_tasks(tasks_map_t& tasks_map, bool all) {
         t.set_modified_on(modified_on_str);
         t.set_active(active);
 
-        time_duration td = seconds(m_config.get_refresh_interval());
-        ptime now = microsec_clock::universal_time();
-
         // only get modified tasks
         bool modified = is_in_window(now - td, now, t.get_modified_on());
-        if(!all && !modified){
-            continue;
-        }
-
-        // now is in window
         bool is_now_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now);
         bool is_start_in_window = is_in_window(now, now + td, t.get_start_date_time());
-        // next refresh is in window 
-        // bool is_future_in_window = is_in_window(t.get_start_date_time(), t.get_end_date_time(), now + td);
 
-        if(!is_now_in_window && !is_start_in_window){
-            continue;
+        //BOOST_LOG_TRIVIAL(info) << "task_id: " << task_id << " modifed: " << modified << " is_now_in_window: " << is_now_in_window << " is_start_in_window: " << is_start_in_window;
+
+        if(all){
+            if(!is_now_in_window && !is_start_in_window){
+                //BOOST_LOG_TRIVIAL(info) << "1";
+                continue;
+            } 
+        } else {
+            if(!(modified && is_now_in_window) && !is_start_in_window){
+                //BOOST_LOG_TRIVIAL(info) << "2";
+                continue;
+            }
         }
         
         tasks_map.emplace(task_id, std::move(t));

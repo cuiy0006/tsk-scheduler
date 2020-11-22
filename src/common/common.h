@@ -11,6 +11,7 @@ ptime utc_to_local(ptime&& utc_date_time);
 
 bool is_expired(ptime& end_date_time, ptime& time);
 bool is_expired(ptime&& end_date_time, ptime& time);
+bool is_expired(ptime& end_date_time, ptime&& time);
 
 bool is_in_window(ptime& start_date_time, ptime& end_date_time, ptime& time);
 bool is_in_window(ptime&& start_date_time, ptime&& end_date_time, ptime&& time);

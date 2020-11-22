@@ -16,6 +16,10 @@ bool is_expired(ptime&& end_date_time, ptime& time) {
     return is_expired(end_date_time, time);
 }
 
+bool is_expired(ptime& end_date_time, ptime&& time) {
+    return is_expired(end_date_time, time);
+}
+
 bool is_in_window(ptime& start_date_time, ptime& end_date_time, ptime& time) {
     return time < end_date_time && time >= start_date_time ;
 }

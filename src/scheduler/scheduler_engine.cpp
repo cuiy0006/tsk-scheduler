@@ -47,7 +47,7 @@ void scheduler_engine::setup_start_timer(entry& ent) {
     
     ent.start_timer_ptr->expires_from_now(td);
     ent.start_timer_ptr->async_wait([this, &ent](const boost::system::error_code& e) {
-        this->setup_recurring_timer(ent);
+        this->dispatch(ent);
     });
 
     
@@ -59,11 +59,19 @@ void scheduler_engine::setup_recurring_timer(entry& ent) {
         ent.recurring_timer_ptr = std::make_unique<boost::asio::deadline_timer>(m_io_service);
     }
 
-    int interval = ent.m_task.get_interval();
+    ptime now = microsec_clock::universal_time();
+    ptime end_date_time = ent.m_task.get_end_date_time();
+    time_duration interval = seconds(ent.m_task.get_interval());
 
-    BOOST_LOG_TRIVIAL(info) << "Setup up recurring timer for " << ent.m_task.get_task_id() << ", " << interval << " seconds from now";
+    if(is_expired(end_date_time, now + interval)) {
+        BOOST_LOG_TRIVIAL(info) << "Running task " << ent.m_task.get_task_id() << " is expiring";
+        m_entries_map.erase(ent.m_task.get_task_id());
+        return;
+    }
 
-    ent.recurring_timer_ptr->expires_from_now(seconds(interval));
+    BOOST_LOG_TRIVIAL(info) << "Setup up recurring timer for " << ent.m_task.get_task_id() << ", " << interval.total_seconds() << " seconds from now";
+
+    ent.recurring_timer_ptr->expires_from_now(interval);
     ent.recurring_timer_ptr->async_wait([this, &ent](const boost::system::error_code& e) {
         this->dispatch(ent);
     });
@@ -72,6 +80,16 @@ void scheduler_engine::setup_recurring_timer(entry& ent) {
 }
 
 void scheduler_engine::dispatch(entry& ent) {
+    ptime now = microsec_clock::universal_time();
+    ptime end_date_time = ent.m_task.get_end_date_time();
+
+    //BOOST_LOG_TRIVIAL(info) << "task: " << ent.m_task.get_task_id() << " Now: " << now << " End: " << end_date_time << " expired: " << is_expired(end_date_time, now);
+    if(is_expired(end_date_time, now)){
+        BOOST_LOG_TRIVIAL(info) << "Running task " << ent.m_task.get_task_id() << " is expired";
+        m_entries_map.erase(ent.m_task.get_task_id());
+        return;
+    }
+
     BOOST_LOG_TRIVIAL(info) << "Dispatching task for " << ent.m_task.get_task_id();
 
     setup_recurring_timer(ent);

@@ -41,7 +41,7 @@ private:
         std::unique_ptr<boost::asio::deadline_timer> recurring_timer_ptr;
 
         void stop_timers() {
-            BOOST_LOG_TRIVIAL(info) << "Stop timers for task: " << m_task.get_task_id();
+            BOOST_LOG_TRIVIAL(info) << "Cancelling timers for task: " << m_task.get_task_id();
 
             if(start_timer_ptr){
                 start_timer_ptr->cancel();
