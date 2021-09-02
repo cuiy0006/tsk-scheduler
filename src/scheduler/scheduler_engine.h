@@ -35,6 +35,8 @@ private:
 
         entry(const entry& e) = delete;
         entry(entry&& e) = delete;
+        entry& operator=(const entry&) = delete;
+        entry& operator=(entry&&) = delete;
 
         task m_task;
         std::unique_ptr<boost::asio::deadline_timer> start_timer_ptr;

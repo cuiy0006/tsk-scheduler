@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     init_logging(config);
 
-    BOOST_LOG_TRIVIAL(info) << "Starting task scheduler!";
+    BOOST_LOG_TRIVIAL(info) << "----------------- Started task scheduler -----------------";
 
     general::scheduler::asio_thread_pool pool(config.get_thread_pool_size());
 

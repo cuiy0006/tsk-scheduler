@@ -1,24 +1,19 @@
 # Task Scheduler
 
-## Dependency
-```
-$ sudo apt-get install libboost-all-dev
-
-```
-
 ## Build
 ```
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
-$ make install
+$ rm -rf build && mkdir build && cd build
+$ cmake .. && make && make install
 ```
 
 ## Run 
-Under build/bin, 
 ```
-$ ./start.sh
+$ cd bin && ./start.sh
+```
+
+## Run tests
+```
+$ cd bin && ./all_unit_tests
 ```
 
 ## Environment Variables
